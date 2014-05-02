@@ -1,6 +1,6 @@
 {
     "name": "TalkJS-Server",
-    "version": "0.4.0",
+    "version": "0.5.0-1",
     "main": "./forever.js",
     "description": "Server for TalkJS",
     "repository": {
@@ -18,8 +18,11 @@
         "sqlite3": "2.x.x"
     },
     "devDependencies": {
-        "grunt-contrib-jshint": "0.8.x",
-        "grunt": "0.4.x"
+        "grunt-contrib-clean": "0.5.x",
+        "grunt-bump": "0.0.13",
+        "grunt-ts": "1.11.x",
+        "grunt": "0.4.x",
+        "typescript": "*"
     },
     "engines": {
         "node": ">=0.10"

@@ -1,16 +1,39 @@
 module.exports = function(grunt) {
     grunt.initConfig({
-        jshint: {
-            all: [
-                "Gruntfile.js",
-                "server.js",
-                "index.js"
-            ],
+        ts: {
+            compile: {
+                src: ["lib/**/*.ts"],
+                options: {
+                    module: "commonjs",
+                    sourceMap: false,
+                    target: "es5"
+                }
+            }
+        },
+        bump: {
+            files: ["package.json"],
             options: {
-                force: true
+                createTag: false,
+                commit: false,
+                push: false
+            }
+        },
+        clean: {
+            js: {
+                src: ["lib/**/*.js"]
             }
         }
     });
-    grunt.loadNpmTasks("grunt-contrib-jshint");
-    grunt.registerTask("debug", ["jshint"]);
+    [
+        "grunt-contrib-clean",
+        "grunt-bump",
+        "grunt-ts"
+    ].forEach(function(task) {
+        grunt.loadNpmTasks(task);
+    });
+    grunt.registerTask("default", [
+        "clean:js",
+        "ts:compile",
+        "bump:build"
+    ]);
 };
