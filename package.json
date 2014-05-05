@@ -1,6 +1,6 @@
 {
     "name": "TalkJS-Server",
-    "version": "1.0.0-1",
+    "version": "1.0.0-46",
     "main": "./forever.js",
     "description": "Server for TalkJS",
     "repository": {
@@ -14,8 +14,7 @@
     },
     "dependencies": {
         "forever-monitor": "1.1",
-        "socket.io": "0.9.x",
-        "sqlite3": "2.x.x"
+        "socket.io": "0.9.x"
     },
     "devDependencies": {
         "grunt-contrib-clean": "0.5.x",

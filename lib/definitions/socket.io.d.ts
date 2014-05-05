@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-///<reference path='../node/node.d.ts' />
+///<reference path='node.d.ts' />
 
 declare module "socket.io" {
     import http = require('http');
@@ -37,7 +37,7 @@ declare module "socket.io" {
     }
 
     interface SocketNamespace {
-        clients(room: string): Socket[];
+        clients(room?: string): Socket[]; // Edited by Pinting
         log: any;
         store: any;
         json: any;

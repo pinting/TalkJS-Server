@@ -1,25 +1,24 @@
-/// <reference path="./socket.io/socket.io.d.ts" />
-/// <reference path="./sqlite3/sqlite3.d.ts" />
-/// <reference path="./node/node.d.ts" />
+/// <reference path="./definitions/socket.io.d.ts" />
+/// <reference path="./definitions/node.d.ts" />
 
 import SocketIO = require("socket.io");
-import Server = require("./server");
+import Main = require("./main");
 import Util = require("./util");
 
 class Connection {
-    private parent: Server;
+    private warn = Util.noop;
+    private log = Util.noop;
+    private parent: Main;
     private client: any;
 
-    constructor(client: SocketIO.Socket, parent: Server) {
+    constructor(client: SocketIO.Socket, parent: Main) {
+        this.warn = parent.io.log.warn.bind(parent.io.log);
+        this.log = parent.io.log.info.bind(parent.io.log);
         this.parent = parent;
         this.client = client;
-        this.client.loggedIn = false;
-        this.client.username = null;
-        this.client.roomType = null;
-        this.client.room = null;
 
         ["message"].forEach((method) => {
-            this.client.on(method, this[method].bind(self));
+            this.client.on(method, this[method].bind(this));
         });
     }
 
@@ -28,12 +27,16 @@ class Connection {
      * @message {object}
      */
 
-    public message(type, payload) {
-        var client = this.parent.io.sockets.sockets[payload.peer];
-        if(client) {
-            payload.peer = this.client.id;
-            client.emit("message", type, payload);
-        }
+    public message(payload) {
+        this.log("Handling message:", payload);
+        this.parent.io.sockets.clients().some((client) => {
+            if(client.id === payload.peer) {
+                payload.peer = this.client.id;
+                client.emit("message", payload);
+                return true;
+            }
+            return false;
+        });
     }
 }
 
