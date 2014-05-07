@@ -1,6 +1,7 @@
 // Type definitions for socket.io
 // Project: http://socket.io/
 // Definitions by: William Orr <https://github.com/worr>
+// Edited by: Tornyi Dénes <https://github/pinting>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -9,11 +10,7 @@
 declare module "socket.io" {
     import http = require('http');
 
-    //export function listen(server: http.Server, options: any, fn: Function): SocketManager;
-    //export function listen(server: http.Server, fn?: Function): SocketManager;
-    //export function listen(port: Number): SocketManager;
-
-    export function listen(serverOrPort: any, optionsOrFn?: any, fn?: any): SocketManager; // Added by Pinting
+    export function listen(serverOrPort: any, optionsOrFn?: any, fn?: any): SocketManager;
 
     interface Socket {
         id: string;
@@ -37,7 +34,7 @@ declare module "socket.io" {
     }
 
     interface SocketNamespace {
-        clients(room?: string): Socket[]; // Edited by Pinting
+        clients(room?: string): Socket[];
         log: any;
         store: any;
         json: any;
@@ -50,7 +47,7 @@ declare module "socket.io" {
         emit(ev: any, ...data:any[]): Socket;
         socket(sid: any, readable: boolean): Socket;
         authorization(fn: Function): SocketNamespace;
-        sockets: SocketNamespace; // Added by Pinting
+        sockets: SocketNamespace;
     }
 
     interface SocketManager {
@@ -65,6 +62,7 @@ declare module "socket.io" {
         of(nsp: string): SocketNamespace;
         on(ns: string, fn: Function): SocketManager;
         sockets: SocketNamespace;
+        log: Console;
     }
 
 

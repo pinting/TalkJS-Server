@@ -28,30 +28,6 @@ class Util {
     }
 
     /**
-     * Make a string HTML-safe
-     */
-
-    static safeText(obj: any): string {
-        if(this.isString(obj)) {
-            return obj
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&apos;")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
-        }
-        return "";
-    }
-
-    /**
-     * Check if input is undefined or null - from TokBox
-     */
-
-    static isNone(obj: any): boolean {
-        return obj === undefined || obj === null;
-    }
-
-    /**
      * Check if object is empty - from TokBox
      */
 
@@ -84,36 +60,6 @@ class Util {
 
     static isObject(obj: any): boolean {
         return obj === Object(obj);
-    }
-
-    /**
-     * Create a random number between the minimum and the maximum argument
-     */
-
-    static randNum(min?: number, max?: number): number {
-        max = max || Math.pow(10, 16);
-        min = min || 0;
-
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
-    /**
-     * Create a random word
-     */
-
-    static randWord(length?: number): string {
-        length = length || 8;
-        var word = "";
-
-        for(;length > 0; length--) {
-            if(Math.floor(length / 2) === (length / 2)) {
-                word += "bcdfghjklmnpqrstvwxyz"[this.randNum(0, 20)];
-            }
-            else {
-                word += "aeiou"[this.randNum(0, 4)];
-            }
-        }
-        return word;
     }
 
     /**
@@ -188,7 +134,7 @@ class Util {
      * An empty function
      */
 
-    static noop(...args: any[]) {
+    static noop(...args: any[]): void {
 
     }
 }

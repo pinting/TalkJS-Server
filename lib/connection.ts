@@ -1,5 +1,6 @@
 /// <reference path="./definitions/socket.io.d.ts" />
 /// <reference path="./definitions/node.d.ts" />
+/// <reference path="./definitions/talk.d.ts" />
 
 import SocketIO = require("socket.io");
 import Main = require("./main");
@@ -9,7 +10,7 @@ class Connection {
     private warn = Util.noop;
     private log = Util.noop;
     private parent: Main;
-    private client: any;
+    private client: SocketIO.Socket;
 
     constructor(client: SocketIO.Socket, parent: Main) {
         this.warn = parent.io.log.warn.bind(parent.io.log);
@@ -17,19 +18,18 @@ class Connection {
         this.parent = parent;
         this.client = client;
 
-        ["message"].forEach((method) => {
+        ["message"].forEach((method: string) => {
             this.client.on(method, this[method].bind(this));
         });
     }
 
     /**
      * Send a message to someone else
-     * @message {object}
      */
 
-    public message(payload) {
+    public message(payload: Message): void {
         this.log("Handling message:", payload);
-        this.parent.io.sockets.clients().some((client) => {
+        this.parent.io.sockets.clients().some((client: SocketIO.Socket) => {
             if(client.id === payload.peer) {
                 payload.peer = this.client.id;
                 client.emit("message", payload);

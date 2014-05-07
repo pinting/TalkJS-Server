@@ -13,16 +13,16 @@ class Main {
         port: 8000,
         log: 3
     };
+    public io: SocketIO.SocketManager;
     private server: HTTP.Server;
-    public io: any;
 
     constructor(options: Object) {
         Util.overwrite(this.config, options);
         this.server = HTTP.createServer();
-        this.io = <any> SocketIO.listen(this.server, {log: this.config.log});
+        this.io = SocketIO.listen(this.server, {log: this.config.log});
         this.io.set("log level", this.config.log);
         this.server.listen(this.config.port, this.config.ip);
-        this.io.sockets.on("connection", (client) => {
+        this.io.sockets.on("connection", (client: SocketIO.Socket) => {
             new this.config.connection(client, this);
         });
     }
