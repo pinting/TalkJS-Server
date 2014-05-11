@@ -21,8 +21,8 @@ declare module "socket.io" {
         handshake: any;
         in(room: string): Socket;
         to(room: string): Socket;
-        join(name: string, fn: Function): Socket;
-        leave(name: string, fn: Function): Socket;
+        join(name: string, fn?: Function): Socket;
+        leave(name: string, fn?: Function): Socket;
         set(key: string, value: any, fn: Function): Socket;
         get(key: string, fn: Function): Socket;
         has(key: string, fn: Function): Socket;
@@ -31,6 +31,7 @@ declare module "socket.io" {
         send(data: any, fn: Function): Socket;
         emit(ev: any, ...data:any[]): Socket;
         on(ns: string, fn: Function): Socket;
+        room: any;
     }
 
     interface SocketNamespace {

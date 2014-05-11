@@ -7,7 +7,7 @@ class Util {
      * Check if input is a function: if it is not, then return an empty function
      */
 
-    static safeCb(obj: any): Function {
+    static safeCb(obj: any): any {
         if(typeof obj === "function") {
             return obj;
         }

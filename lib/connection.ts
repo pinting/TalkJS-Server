@@ -7,10 +7,10 @@ import Main = require("./main");
 import Util = require("./util");
 
 class Connection {
-    private warn = Util.noop;
-    private log = Util.noop;
-    private parent: Main;
-    private client: SocketIO.Socket;
+    public warn = Util.noop;
+    public log = Util.noop;
+    public parent: Main;
+    public client: any;
 
     constructor(client: SocketIO.Socket, parent: Main) {
         this.warn = parent.io.log.warn.bind(parent.io.log);
