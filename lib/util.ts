@@ -55,27 +55,11 @@ class Util {
     }
 
     /**
-     * Check input is object - from TokBox
-     */
-
-    static isObject(obj: any): boolean {
-        return obj === Object(obj);
-    }
-
-    /**
      * Check if object is a number.
      */
 
     static isNumber(obj: any): boolean {
         return !isNaN(parseFloat(obj)) && isFinite(obj);
-    }
-
-    /**
-     * Check if object is a boolean.
-     */
-
-    static isBool(obj: any): boolean {
-        return typeof obj === "boolean";
     }
 
     /**
@@ -89,14 +73,6 @@ class Util {
             return hash.digest("hex");
         }
         return "";
-    }
-
-    /**
-     * Check if an object can be found in a array
-     */
-
-    static find(list: any[], obj: any): boolean {
-        return list.indexOf(obj) >= 0;
     }
 
     /**

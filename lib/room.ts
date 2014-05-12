@@ -38,10 +38,12 @@ class Room extends Connection {
         cb = Util.safeCb(cb);
 
         if(!room) {
+            this.log("Invalid room name was used by `" + this.client.id + "`:", room);
             cb("invalidRoom");
             return;
         }
         if(!type) {
+            this.log("Invalid room type was used by `" + this.client.id + "`:", type);
             cb("invalidType");
             return;
         }
@@ -49,6 +51,7 @@ class Room extends Connection {
         var clients = this.getRoomClients(room);
         for(var id in clients) {
             if(clients[id].id !== this.client.id && clients[id].type !== type) {
+                this.log("Type error by `" + this.client.id + "`:", type);
                 cb("typeError");
                 return;
             }
@@ -58,21 +61,22 @@ class Room extends Connection {
             this.leave();
         }
 
+        this.log("Client `" + this.client.id + "` has joined to room `" + room + "`");
         this.client.type = type;
         this.client.join(room);
         cb(null, clients);
     }
 
     private leave(): void {
-        this.parent.io.sockets.in(this.client.room).emit("remove", this.client.id);
+        this.client.broadcast.to(this.client.room).emit("remove", this.client.id);
+        this.log("Client `" + this.client.id + "` has left the room `" + this.client.room + "`");
         this.client.leave(this.client.room);
         this.client.type = null;
     }
 
     private disconnect(): void {
-        if(this.client.room) {
-            this.leave();
-        }
+        this.log("Client `" + this.client.id + "` has disconnected");
+        this.leave();
     }
 }
 

@@ -28,7 +28,7 @@ class Connection {
      */
 
     public message(payload: Message): void {
-        this.log("Handling message:", payload);
+        this.log("Handling message from `" + this.client.id + "`:", payload);
         this.parent.io.sockets.clients().some((client: SocketIO.Socket) => {
             if(client.id === payload.peer) {
                 payload.peer = this.client.id;

@@ -1,6 +1,6 @@
 {
     "name": "TalkJS-Server",
-    "version": "1.0.0-125",
+    "version": "1.0.0-151",
     "main": "./forever.js",
     "description": "Server for TalkJS",
     "repository": {
