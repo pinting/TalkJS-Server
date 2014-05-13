@@ -1,6 +1,7 @@
 {
     "name": "TalkJS-Server",
-    "version": "1.0.0-151",
+    "author": "Tornyi Dénes",
+    "version": "1.0.0-154",
     "main": "./forever.js",
     "description": "Server for TalkJS",
     "repository": {
