@@ -2,8 +2,8 @@ module.exports = function(grunt) {
     grunt.initConfig({
         ts: {
             compile: {
-                src: ["src/**/*.ts"],
-                outDir: "dist/",
+                src: ["./src/**/*.ts"],
+                outDir: "./dist/",
                 options: {
                     module: "commonjs",
                     sourceMap: false,
@@ -12,7 +12,7 @@ module.exports = function(grunt) {
             }
         },
         bump: {
-            files: ["package.json"],
+            files: ["./package.json"],
             options: {
                 createTag: false,
                 commit: false,
@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         },
         clean: {
             js: {
-                src: ["dist/**/*.js"]
+                src: ["./dist/**/*.js"]
             }
         }
     });
