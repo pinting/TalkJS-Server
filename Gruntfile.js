@@ -20,21 +20,17 @@ module.exports = function(grunt) {
             }
         },
         clean: {
-            js: {
-                src: ["./dist/**/*.js"]
+            baseDir: {
+                src: ["./**/.baseDir*"]
             }
         }
     });
-    [
-        "grunt-contrib-clean",
-        "grunt-bump",
-        "grunt-ts"
-    ].forEach(function(task) {
-        grunt.loadNpmTasks(task);
-    });
+    grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-bump");
+    grunt.loadNpmTasks("grunt-ts");
     grunt.registerTask("default", [
-        "clean:js",
         "ts:compile",
-        "bump:build"
+        "bump:patch",
+        "clean:baseDir"
     ]);
 };
