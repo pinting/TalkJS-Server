@@ -17,7 +17,7 @@ class Main {
     private server: HTTP.Server;
 
     constructor(options: Object) {
-        Util.overwrite(this.config, options);
+        Util.extend(this.config, options);
         this.server = HTTP.createServer();
         this.io = SocketIO.listen(this.server, {log: this.config.log});
         this.io.set("log level", this.config.log);

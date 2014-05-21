@@ -6,6 +6,7 @@ module.exports = function(grunt) {
                 outDir: "./dist/",
                 options: {
                     module: "commonjs",
+                    declaration: true,
                     sourceMap: false,
                     target: "es5"
                 }

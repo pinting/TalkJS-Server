@@ -12,7 +12,7 @@ var Main = (function () {
             port: 8000,
             log: 3
         };
-        Util.overwrite(this.config, options);
+        Util.extend(this.config, options);
         this.server = HTTP.createServer();
         this.io = SocketIO.listen(this.server, { log: this.config.log });
         this.io.set("log level", this.config.log);

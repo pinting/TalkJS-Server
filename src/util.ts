@@ -21,7 +21,7 @@ class Util {
      */
 
     static safeStr(obj: any): string {
-        if(this.isString(obj)) {
+        if(this.isStr(obj)) {
             return obj.replace(/\s/g, "-").replace(/[^A-Za-z0-9_\-]/g, "").toString();
         }
         return "";
@@ -50,16 +50,8 @@ class Util {
      * Check if object is a NOT EMPTY string.
      */
 
-    static isString(obj: any): boolean {
+    static isStr(obj: any): boolean {
         return typeof obj === "string" && !this.isEmpty(obj);
-    }
-
-    /**
-     * Check if object is a number.
-     */
-
-    static isNumber(obj: any): boolean {
-        return !isNaN(parseFloat(obj)) && isFinite(obj);
     }
 
     /**
@@ -67,7 +59,7 @@ class Util {
      */
 
     static sha256(obj: string): string {
-        if(this.isString(obj)) {
+        if(this.isStr(obj)) {
             var hash = Crypto.createHash("sha256");
             hash.update(obj);
             return hash.digest("hex");
@@ -80,30 +72,12 @@ class Util {
      */
 
     static extend(obj: Object, source: Object): Object {
-        obj = obj || {};
-        if(!this.isEmpty(source)) {
-            for(var key in source) {
-                if(source.hasOwnProperty(key)) {
-                    obj[key] = source[key];
-                }
+        for(var key in source) {
+            if(source.hasOwnProperty(key)) {
+                obj[key] = source[key];
             }
         }
         return obj;
-    }
-
-    /**
-     * Overwrite an object EXISTING properties, with another object properties
-     */
-
-    static overwrite(obj: Object, source: Object): Object {
-        if(!this.isEmpty(obj) && !this.isEmpty(source)) {
-            for(var key in obj) {
-                if(obj.hasOwnProperty(key) && source.hasOwnProperty(key)) {
-                    obj[key] = source[key];
-                }
-            }
-        }
-        return obj || {};
     }
 
     /**

@@ -12,7 +12,7 @@ var Util = (function () {
     };
 
     Util.safeStr = function (obj) {
-        if (this.isString(obj)) {
+        if (this.isStr(obj)) {
             return obj.replace(/\s/g, "-").replace(/[^A-Za-z0-9_\-]/g, "").toString();
         }
         return "";
@@ -33,16 +33,12 @@ var Util = (function () {
         return true;
     };
 
-    Util.isString = function (obj) {
+    Util.isStr = function (obj) {
         return typeof obj === "string" && !this.isEmpty(obj);
     };
 
-    Util.isNumber = function (obj) {
-        return !isNaN(parseFloat(obj)) && isFinite(obj);
-    };
-
     Util.sha256 = function (obj) {
-        if (this.isString(obj)) {
+        if (this.isStr(obj)) {
             var hash = Crypto.createHash("sha256");
             hash.update(obj);
             return hash.digest("hex");
@@ -51,26 +47,12 @@ var Util = (function () {
     };
 
     Util.extend = function (obj, source) {
-        obj = obj || {};
-        if (!this.isEmpty(source)) {
-            for (var key in source) {
-                if (source.hasOwnProperty(key)) {
-                    obj[key] = source[key];
-                }
+        for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+                obj[key] = source[key];
             }
         }
         return obj;
-    };
-
-    Util.overwrite = function (obj, source) {
-        if (!this.isEmpty(obj) && !this.isEmpty(source)) {
-            for (var key in obj) {
-                if (obj.hasOwnProperty(key) && source.hasOwnProperty(key)) {
-                    obj[key] = source[key];
-                }
-            }
-        }
-        return obj || {};
     };
 
     Util.noop = function () {
