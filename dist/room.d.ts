@@ -1,6 +1,5 @@
 /// <reference path="../src/definitions/socket.io.d.ts" />
 /// <reference path="../src/definitions/node.d.ts" />
-/// <reference path="../src/definitions/talk.d.ts" />
 import Connection = require("./connection");
 import SocketIO = require("socket.io");
 import Main = require("./main");

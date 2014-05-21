@@ -1,7 +1,6 @@
 // Type definitions for socket.io
 // Project: http://socket.io/
-// Definitions by: William Orr <https://github.com/worr>
-// Edited by: Tornyi Dénes <https://github/pinting>
+// Definitions by: William Orr <https://github.com/worr> & Tornyi Dénes
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -10,7 +9,7 @@
 declare module "socket.io" {
     import http = require('http');
 
-    export function listen(serverOrPort: any, optionsOrFn?: any, fn?: any): SocketManager;
+    export function listen(server: any, options?: any, fn?: any): SocketManager;
 
     interface Socket {
         id: string;

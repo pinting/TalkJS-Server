@@ -1,6 +1,5 @@
 /// <reference path="./definitions/socket.io.d.ts" />
 /// <reference path="./definitions/node.d.ts" />
-/// <reference path="./definitions/talk.d.ts" />
 
 import Connection = require("./connection");
 import SocketIO = require("socket.io");
@@ -17,6 +16,10 @@ class Room extends Connection {
         });
     }
 
+    /**
+     * Get the clients of the given room
+     */
+
     private getRoomClients(room: string): any[] {
         var clients = this.parent.io.sockets.clients(room);
         var result = [];
@@ -31,6 +34,10 @@ class Room extends Connection {
         });
         return result;
     }
+
+    /**
+     * Join to a room
+     */
 
     private join(room: string, type: string, cb: (error: any, clients?: any[]) => void): void {
         room = Util.safeStr(room);
@@ -67,12 +74,20 @@ class Room extends Connection {
         cb(null, clients);
     }
 
+    /**
+     * Leave the current room
+     */
+
     private leave(): void {
         this.client.broadcast.to(this.client.room).emit("remove", this.client.id);
         this.log("Client `" + this.client.id + "` has left the room `" + this.client.room + "`");
         this.client.leave(this.client.room);
         this.client.type = null;
     }
+
+    /**
+     * Executed when socket was disconnected
+     */
 
     private disconnect(): void {
         this.log("Client `" + this.client.id + "` has disconnected");

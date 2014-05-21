@@ -1,10 +1,16 @@
 /// <reference path="./definitions/socket.io.d.ts" />
 /// <reference path="./definitions/node.d.ts" />
-/// <reference path="./definitions/talk.d.ts" />
 
 import SocketIO = require("socket.io");
 import Main = require("./main");
 import Util = require("./util");
+
+interface Message {
+    handler: any[];
+    peer: string;
+    key: string;
+    value: any;
+}
 
 class Connection {
     public warn = Util.noop;
@@ -27,7 +33,7 @@ class Connection {
      * Send a message to someone else
      */
 
-    public message(payload: Message): void {
+    private message(payload: Message): void {
         this.log("Handling message from `" + this.client.id + "`:", payload);
         this.parent.io.sockets.clients().some((client: SocketIO.Socket) => {
             if(client.id === payload.peer) {
