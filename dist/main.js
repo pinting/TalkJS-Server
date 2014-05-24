@@ -4,10 +4,10 @@ var Util = require("./util");
 var HTTP = require("http");
 
 var Main = (function () {
-    function Main(options) {
+    function Main(options, C) {
+        if (typeof C === "undefined") { C = Room; }
         var _this = this;
         this.config = {
-            connection: Room,
             ip: "127.0.0.1",
             port: 8000,
             log: 3
@@ -18,7 +18,7 @@ var Main = (function () {
         this.io.set("log level", this.config.log);
         this.server.listen(this.config.port, this.config.ip);
         this.io.sockets.on("connection", function (socket) {
-            new _this.config.connection(socket, _this);
+            new C(socket, _this);
         });
     }
     return Main;

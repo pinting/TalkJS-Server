@@ -4,13 +4,12 @@ import SocketIO = require("socket.io");
 import Room = require("./room");
 declare class Main {
     public config: {
-        connection: typeof Room;
         ip: string;
         port: number;
         log: number;
     };
     public io: SocketIO.SocketManager;
     private server;
-    constructor(options: Object);
+    constructor(options: Object, C?: typeof Room);
 }
 export = Main;

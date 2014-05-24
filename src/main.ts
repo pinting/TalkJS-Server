@@ -8,7 +8,6 @@ import HTTP = require("http");
 
 class Main {
     public config = {
-        connection: Room,
         ip: "127.0.0.1",
         port: 8000,
         log: 3
@@ -19,16 +18,17 @@ class Main {
     /**
      * Main is the top layer of the server: it handles new connections.
      * @param {Main.config} options
+     * @param {Room} [C] - Custom connection handler
      */
 
-    constructor(options: Object) {
+    constructor(options: Object, C = Room) {
         Util.extend(this.config, options);
         this.server = HTTP.createServer();
         this.io = SocketIO.listen(this.server, {log: this.config.log});
         this.io.set("log level", this.config.log);
         this.server.listen(this.config.port, this.config.ip);
         this.io.sockets.on("connection", (socket: SocketIO.Socket) => {
-            new this.config.connection(socket, this);
+            new C(socket, this);
         });
     }
 }
