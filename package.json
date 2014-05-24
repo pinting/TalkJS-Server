@@ -1,7 +1,7 @@
 {
     "name": "TalkJS Server",
     "author": "Tornyi Dénes",
-    "version": "1.0.190",
+    "version": "1.0.191",
     "main": "./index.js",
     "description": "Server for TalkJS",
     "repository": {
@@ -9,12 +9,9 @@
         "type": "git"
     },
     "scripts": {
-        "preinstall": "npm install -g grunt-cli",
-        "forever": "node forever",
-        "start": "node server"
+        "preinstall": "npm install -g grunt-cli"
     },
     "dependencies": {
-        "forever-monitor": "1.1",
         "socket.io": "0.9.x"
     },
     "devDependencies": {
