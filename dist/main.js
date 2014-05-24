@@ -17,8 +17,8 @@ var Main = (function () {
         this.io = SocketIO.listen(this.server, { log: this.config.log });
         this.io.set("log level", this.config.log);
         this.server.listen(this.config.port, this.config.ip);
-        this.io.sockets.on("connection", function (client) {
-            new _this.config.connection(client, _this);
+        this.io.sockets.on("connection", function (socket) {
+            new _this.config.connection(socket, _this);
         });
     }
     return Main;

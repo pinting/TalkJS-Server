@@ -10,13 +10,13 @@ var Util = require("./util");
 
 var Room = (function (_super) {
     __extends(Room, _super);
-    function Room(client, parent) {
+    function Room(socket, parent) {
         var _this = this;
-        _super.call(this, client, parent);
-        this.client.type = null;
+        _super.call(this, socket, parent);
+        this.socket.type = null;
 
         ["join", "leave", "disconnect"].forEach(function (method) {
-            _this.client.on(method, _this[method].bind(_this));
+            _this.socket.on(method, _this[method].bind(_this));
         });
     }
     Room.prototype.getRoomClients = function (room) {
@@ -25,7 +25,7 @@ var Room = (function (_super) {
         var result = [];
 
         clients.forEach(function (client) {
-            if (_this.client.id !== client.id) {
+            if (_this.socket.id !== client.id) {
                 result.push({
                     type: client.type,
                     id: client.id
@@ -41,44 +41,44 @@ var Room = (function (_super) {
         cb = Util.safeCb(cb);
 
         if (!room) {
-            this.log("Invalid room name was used by `" + this.client.id + "`:", room);
+            this.log("Invalid room name was used by `" + this.socket.id + "`:", room);
             cb("invalidRoom");
             return;
         }
         if (!type) {
-            this.log("Invalid room type was used by `" + this.client.id + "`:", type);
+            this.log("Invalid room type was used by `" + this.socket.id + "`:", type);
             cb("invalidType");
             return;
         }
 
         var clients = this.getRoomClients(room);
         for (var id in clients) {
-            if (clients[id].id !== this.client.id && clients[id].type !== type) {
-                this.log("Type error by `" + this.client.id + "`:", type);
+            if (clients[id].id !== this.socket.id && clients[id].type !== type) {
+                this.log("Type error by `" + this.socket.id + "`:", type);
                 cb("typeError");
                 return;
             }
         }
 
-        if (this.client.room) {
+        if (this.socket.room) {
             this.leave();
         }
 
-        this.log("Client `" + this.client.id + "` has joined to room `" + room + "`");
-        this.client.type = type;
-        this.client.join(room);
+        this.log("Client `" + this.socket.id + "` has joined to room `" + room + "`");
+        this.socket.type = type;
+        this.socket.join(room);
         cb(null, clients);
     };
 
     Room.prototype.leave = function () {
-        this.client.broadcast.to(this.client.room).emit("remove", this.client.id);
-        this.log("Client `" + this.client.id + "` has left the room `" + this.client.room + "`");
-        this.client.leave(this.client.room);
-        this.client.type = null;
+        this.socket.broadcast.to(this.socket.room).emit("remove", this.socket.id);
+        this.log("Client `" + this.socket.id + "` has left the room `" + this.socket.room + "`");
+        this.socket.leave(this.socket.room);
+        this.socket.type = null;
     };
 
     Room.prototype.disconnect = function () {
-        this.log("Client `" + this.client.id + "` has disconnected");
+        this.log("Client `" + this.socket.id + "` has disconnected");
         this.leave();
     };
     return Room;

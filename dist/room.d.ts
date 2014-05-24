@@ -4,7 +4,7 @@ import Connection = require("./connection");
 import SocketIO = require("socket.io");
 import Main = require("./main");
 declare class Room extends Connection {
-    constructor(client: SocketIO.Socket, parent: Main);
+    constructor(socket: SocketIO.Socket, parent: Main);
     private getRoomClients(room);
     private join(room, type, cb);
     private leave();

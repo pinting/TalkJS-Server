@@ -16,14 +16,19 @@ class Main {
     public io: SocketIO.SocketManager;
     private server: HTTP.Server;
 
+    /**
+     * Main is the top layer of the server: it handles new connections.
+     * @param {Main.config} options
+     */
+
     constructor(options: Object) {
         Util.extend(this.config, options);
         this.server = HTTP.createServer();
         this.io = SocketIO.listen(this.server, {log: this.config.log});
         this.io.set("log level", this.config.log);
         this.server.listen(this.config.port, this.config.ip);
-        this.io.sockets.on("connection", (client: SocketIO.Socket) => {
-            new this.config.connection(client, this);
+        this.io.sockets.on("connection", (socket: SocketIO.Socket) => {
+            new this.config.connection(socket, this);
         });
     }
 }

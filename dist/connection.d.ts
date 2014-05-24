@@ -6,8 +6,8 @@ declare class Connection {
     public warn: (...args: any[]) => void;
     public log: (...args: any[]) => void;
     public parent: Main;
-    public client: any;
-    constructor(client: SocketIO.Socket, parent: Main);
+    public socket: any;
+    constructor(socket: SocketIO.Socket, parent: Main);
     private message(payload);
 }
 export = Connection;

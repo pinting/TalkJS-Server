@@ -1,8 +1,8 @@
 {
     "name": "TalkJS Server",
     "author": "Tornyi Dénes",
-    "version": "1.0.184",
-    "main": "./forever.js",
+    "version": "1.0.190",
+    "main": "./index.js",
     "description": "Server for TalkJS",
     "repository": {
         "url": "https://github.com/pinting/TalkJS-Server",
