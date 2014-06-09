@@ -2,7 +2,7 @@
 
 Server for TalkJS.
 
-## Usage
+## Build
 
 `npm install`: Install dependencies
 
@@ -10,7 +10,9 @@ Server for TalkJS.
 
 `grunt bump`: Bump the version
 
-JSDoc is included in the source
+## Documentation
+
+JSDoc is included in the source.
 
 ## Contributing
 
