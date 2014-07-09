@@ -10,6 +10,6 @@ declare class Main {
     };
     public io: SocketIO.SocketManager;
     private server;
-    constructor(options: Object, C?: typeof Room);
+    constructor(options?: {}, C?: typeof Room);
 }
 export = Main;

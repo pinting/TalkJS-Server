@@ -5,21 +5,21 @@ import SocketIO = require("socket.io");
 import Main = require("./main");
 import Util = require("./util");
 
-interface Message {
-    handler: any[];
+interface IMessage {
+    group: string[];
     peer: string;
     key: string;
     value: any;
 }
 
-class Connection {
+class Pure {
     public warn = Util.noop;
     public log = Util.noop;
     public parent: Main;
     public socket: any;
 
     /**
-     * Connection can send and receive messages between connected sockets.
+     * Pure connection can send and receive messages between connected sockets.
      * @param {SocketIO.Socket} socket
      * @param {Main} parent
      */
@@ -37,11 +37,11 @@ class Connection {
 
     /**
      * Send a message to someone else
-     * @param {Connection.Message} payload
+     * @param {IMessage} payload
      */
 
-    private message(payload: Message): void {
-        this.log("Handling message from `" + this.socket.id + "`:", payload);
+    private message(payload: IMessage): void {
+        this.log("Message from `" + this.socket.id + "` has been handled:", payload);
         this.parent.io.sockets.clients().some((client: SocketIO.Socket) => {
             if(client.id === payload.peer) {
                 payload.peer = this.socket.id;
@@ -53,4 +53,4 @@ class Connection {
     }
 }
 
-export = Connection;
+export = Pure;

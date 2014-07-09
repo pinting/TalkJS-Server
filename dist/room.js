@@ -4,7 +4,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var Connection = require("./connection");
+var Pure = require("./pure");
 
 var Util = require("./util");
 
@@ -54,7 +54,7 @@ var Room = (function (_super) {
         var clients = this.getRoomClients(room);
         for (var id in clients) {
             if (clients[id].id !== this.socket.id && clients[id].type !== type) {
-                this.log("Type error by `" + this.socket.id + "`:", type);
+                this.log("Invalid room type was used by `" + this.socket.id + "`:", type);
                 cb("typeError");
                 return;
             }
@@ -64,7 +64,7 @@ var Room = (function (_super) {
             this.leave();
         }
 
-        this.log("Client `" + this.socket.id + "` has joined to room `" + room + "`");
+        this.log("Client `" + this.socket.id + "` was joined room `" + room + "`");
         this.socket.type = type;
         this.socket.join(room);
         cb(null, clients);
@@ -72,16 +72,16 @@ var Room = (function (_super) {
 
     Room.prototype.leave = function () {
         this.socket.broadcast.to(this.socket.room).emit("remove", this.socket.id);
-        this.log("Client `" + this.socket.id + "` has left the room `" + this.socket.room + "`");
+        this.log("Client `" + this.socket.id + "` was left room `" + this.socket.room + "`");
         this.socket.leave(this.socket.room);
         this.socket.type = null;
     };
 
     Room.prototype.disconnect = function () {
-        this.log("Client `" + this.socket.id + "` has disconnected");
+        this.log("Client `" + this.socket.id + "` was disconnected");
         this.leave();
     };
     return Room;
-})(Connection);
+})(Pure);
 
 module.exports = Room;

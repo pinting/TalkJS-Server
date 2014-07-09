@@ -5,6 +5,7 @@ var HTTP = require("http");
 
 var Main = (function () {
     function Main(options, C) {
+        if (typeof options === "undefined") { options = {}; }
         if (typeof C === "undefined") { C = Room; }
         var _this = this;
         this.config = {

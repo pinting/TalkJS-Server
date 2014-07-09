@@ -17,11 +17,11 @@ class Main {
 
     /**
      * Main is the top layer of the server: it handles new connections.
-     * @param {Main.config} options
+     * @param {Main.config} [options]
      * @param {Room} [C] - Custom connection handler
      */
 
-    constructor(options: Object, C = Room) {
+    constructor(options = {}, C = Room) {
         Util.extend(this.config, options);
         this.server = HTTP.createServer();
         this.io = SocketIO.listen(this.server, {log: this.config.log});

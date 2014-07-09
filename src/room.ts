@@ -1,12 +1,12 @@
 /// <reference path="./definitions/socket.io.d.ts" />
 /// <reference path="./definitions/node.d.ts" />
 
-import Connection = require("./connection");
 import SocketIO = require("socket.io");
+import Pure = require("./pure");
 import Main = require("./main");
 import Util = require("./util");
 
-class Room extends Connection {
+class Room extends Pure {
     /**
      * Room is an advanced type of connection: it connects sockets
      * who are in the same room.
@@ -70,7 +70,7 @@ class Room extends Connection {
         var clients = this.getRoomClients(room);
         for(var id in clients) {
             if(clients[id].id !== this.socket.id && clients[id].type !== type) {
-                this.log("Type error by `" + this.socket.id + "`:", type);
+                this.log("Invalid room type was used by `" + this.socket.id + "`:", type);
                 cb("typeError");
                 return;
             }
@@ -80,7 +80,7 @@ class Room extends Connection {
             this.leave();
         }
 
-        this.log("Client `" + this.socket.id + "` has joined to room `" + room + "`");
+        this.log("Client `" + this.socket.id + "` was joined room `" + room + "`");
         this.socket.type = type;
         this.socket.join(room);
         cb(null, clients);
@@ -92,7 +92,7 @@ class Room extends Connection {
 
     private leave(): void {
         this.socket.broadcast.to(this.socket.room).emit("remove", this.socket.id);
-        this.log("Client `" + this.socket.id + "` has left the room `" + this.socket.room + "`");
+        this.log("Client `" + this.socket.id + "` was left room `" + this.socket.room + "`");
         this.socket.leave(this.socket.room);
         this.socket.type = null;
     }
@@ -102,7 +102,7 @@ class Room extends Connection {
      */
 
     private disconnect(): void {
-        this.log("Client `" + this.socket.id + "` has disconnected");
+        this.log("Client `" + this.socket.id + "` was disconnected");
         this.leave();
     }
 }

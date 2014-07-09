@@ -1,13 +1,13 @@
 /// <reference path="../src/definitions/socket.io.d.ts" />
 /// <reference path="../src/definitions/node.d.ts" />
 import SocketIO = require("socket.io");
-import Pure = require("./pure");
 import Main = require("./main");
-declare class Room extends Pure {
+declare class Pure {
+    public warn: (...args: any[]) => void;
+    public log: (...args: any[]) => void;
+    public parent: Main;
+    public socket: any;
     constructor(socket: SocketIO.Socket, parent: Main);
-    private getRoomClients(room);
-    private join(room, type, cb);
-    private leave();
-    private disconnect();
+    private message(payload);
 }
-export = Room;
+export = Pure;
