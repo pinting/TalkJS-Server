@@ -6,7 +6,6 @@ import Main = require("./main");
 import Util = require("./util");
 
 interface IMessage {
-    group: string[];
     peer: string;
     key: string;
     value: any;
