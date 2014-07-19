@@ -10,8 +10,8 @@ class Room extends Pure {
     /**
      * Room is an advanced type of connection: it connects sockets
      * who are in the same room.
-     * @param {SocketIO.Socket} socket
-     * @param {Main} parent
+     * @param socket
+     * @param parent
      */
 
     constructor(socket: SocketIO.Socket, parent: Main) {
@@ -25,8 +25,7 @@ class Room extends Pure {
 
     /**
      * Get the clients of the given room
-     * @param {string} room
-     * @returns {Array}
+     * @param room
      */
 
     private getRoomClients(room: string): any[] {
@@ -46,9 +45,9 @@ class Room extends Pure {
 
     /**
      * Join to a room
-     * @param {string} room - Name of the room
-     * @param {string} type
-     * @param {Function} cb
+     * @param room - Name of the room
+     * @param type
+     * @param cb
      */
 
     private join(room: string, type: string, cb: (error: any, clients?: any[]) => void): void {

@@ -19,8 +19,8 @@ class Pure {
 
     /**
      * Pure connection can send and receive messages between connected sockets.
-     * @param {SocketIO.Socket} socket
-     * @param {Main} parent
+     * @param socket
+     * @param parent
      */
 
     constructor(socket: SocketIO.Socket, parent: Main) {
@@ -36,7 +36,7 @@ class Pure {
 
     /**
      * Send a message to someone else
-     * @param {IMessage} payload
+     * @param payload
      */
 
     private message(payload: IMessage): void {

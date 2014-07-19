@@ -17,8 +17,8 @@ class Main {
 
     /**
      * Main is the top layer of the server: it handles new connections.
-     * @param {Main.config} [options]
-     * @param {Room} [C] - Custom connection handler
+     * @param [options]
+     * @param [C] - Custom connection handler
      */
 
     constructor(options = {}, C = Room) {

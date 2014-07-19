@@ -5,8 +5,7 @@ import Crypto = require("crypto");
 class Util {
     /**
      * Check if input is a function: if it is not, then return an empty function
-     * @param {*} obj
-     * @returns {Function}
+     * @param obj
      */
 
     static safeCb(obj: any): any {
@@ -20,8 +19,7 @@ class Util {
 
     /**
      * Remove unwanted characters from a string
-     * @param {string} obj
-     * @returns {string}
+     * @param obj
      */
 
     static safeStr(obj: string): string {
@@ -33,8 +31,7 @@ class Util {
 
     /**
      * Check if object is empty - from TokBox
-     * @param {Object|Array|string} obj
-     * @returns {boolean}
+     * @param obj
      */
 
     static isEmpty(obj: any): boolean {
@@ -54,8 +51,7 @@ class Util {
 
     /**
      * Check if object is a NOT EMPTY string.
-     * @param {string} obj
-     * @returns {boolean}
+     * @param obj
      */
 
     static isStr(obj: any): boolean {
@@ -64,8 +60,7 @@ class Util {
 
     /**
      * Make an SHA256 hash from a string
-     * @param {string} obj
-     * @returns {string}
+     * @param obj
      */
 
     static sha256(obj: string): string {
@@ -79,9 +74,8 @@ class Util {
 
     /**
      * Extend an array - from PeerJS
-     * @param {Object} obj
-     * @param {Object} source
-     * @returns {Object}
+     * @param obj
+     * @param source
      */
 
     static extend(obj: Object, source: Object): Object {
@@ -95,7 +89,7 @@ class Util {
 
     /**
      * An empty function
-     * @param {...*} [args]
+     * @param [args]
      */
 
     static noop(...args: any[]): void {
