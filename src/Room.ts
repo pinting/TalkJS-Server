@@ -1,31 +1,39 @@
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
-var Pure = require("./pure");
+/// <reference path="./Definitions/socket.io" />
+/// <reference path="./Definitions/node" />
 
-var Util = require("./util");
+import SocketIO = require("socket.io");
+import Pure = require("./Pure");
+import Main = require("./Main");
+import Util = require("./Util");
 
-var Room = (function (_super) {
-    __extends(Room, _super);
-    function Room(socket, parent) {
-        var _this = this;
-        _super.call(this, socket, parent);
+class Room extends Pure {
+    /**
+     * Room is an advanced type of connection: it connects sockets
+     * who are in the same room.
+     * @param socket
+     * @param parent
+     */
+
+    constructor(socket: SocketIO.Socket, parent: Main) {
+        super(socket, parent);
         this.socket.type = null;
 
-        ["join", "leave", "disconnect"].forEach(function (method) {
-            _this.socket.on(method, _this[method].bind(_this));
+        ["join", "leave", "disconnect"].forEach((method: string) => {
+            this.socket.on(method, this[method].bind(this));
         });
     }
-    Room.prototype.getRoomClients = function (room) {
-        var _this = this;
+
+    /**
+     * Get the clients of the given room
+     * @param room
+     */
+
+    private getRoomClients(room: string): any[] {
         var clients = this.parent.io.sockets.clients(room);
         var result = [];
 
-        clients.forEach(function (client) {
-            if (_this.socket.id !== client.id) {
+        clients.forEach((client: any) => {
+            if(this.socket.id !== client.id) {
                 result.push({
                     type: client.type,
                     id: client.id
@@ -33,34 +41,41 @@ var Room = (function (_super) {
             }
         });
         return result;
-    };
+    }
 
-    Room.prototype.join = function (room, type, cb) {
+    /**
+     * Join to a room
+     * @param room - Name of the room
+     * @param type
+     * @param cb
+     */
+
+    private join(room: string, type: string, cb: (error: any, clients?: any[]) => void): void {
         room = Util.safeStr(room);
         type = Util.safeStr(type);
         cb = Util.safeCb(cb);
 
-        if (!room) {
+        if(!room) {
             this.log("Invalid room name was used by `" + this.socket.id + "`:", room);
             cb("invalidRoom");
             return;
         }
-        if (!type) {
+        if(!type) {
             this.log("Invalid room type was used by `" + this.socket.id + "`:", type);
             cb("invalidType");
             return;
         }
 
         var clients = this.getRoomClients(room);
-        for (var id in clients) {
-            if (clients[id].id !== this.socket.id && clients[id].type !== type) {
+        for(var id in clients) {
+            if(clients[id].id !== this.socket.id && clients[id].type !== type) {
                 this.log("Invalid room type was used by `" + this.socket.id + "`:", type);
                 cb("typeError");
                 return;
             }
         }
 
-        if (this.socket.room) {
+        if(this.socket.room) {
             this.leave();
         }
 
@@ -68,20 +83,27 @@ var Room = (function (_super) {
         this.socket.type = type;
         this.socket.join(room);
         cb(null, clients);
-    };
+    }
 
-    Room.prototype.leave = function () {
+    /**
+     * Leave the current room
+     */
+
+    private leave(): void {
         this.socket.broadcast.to(this.socket.room).emit("remove", this.socket.id);
         this.log("Client `" + this.socket.id + "` was left room `" + this.socket.room + "`");
         this.socket.leave(this.socket.room);
         this.socket.type = null;
-    };
+    }
 
-    Room.prototype.disconnect = function () {
+    /**
+     * Executed when socket was disconnected
+     */
+
+    private disconnect(): void {
         this.log("Client `" + this.socket.id + "` was disconnected");
         this.leave();
-    };
-    return Room;
-})(Pure);
+    }
+}
 
-module.exports = Room;
+export = Room;

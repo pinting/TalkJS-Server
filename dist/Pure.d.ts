@@ -1,7 +1,8 @@
-/// <reference path="../src/definitions/socket.io.d.ts" />
-/// <reference path="../src/definitions/node.d.ts" />
+/// <reference path="../src/Definitions/socket.io.d.ts" />
+/// <reference path="../src/Definitions/node.d.ts" />
+/// <reference path="IMessage.d.ts" />
 import SocketIO = require("socket.io");
-import Main = require("./main");
+import Main = require("./Main");
 declare class Pure {
     public warn: (...args: any[]) => void;
     public log: (...args: any[]) => void;

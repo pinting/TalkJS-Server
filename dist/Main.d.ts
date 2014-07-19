@@ -1,7 +1,7 @@
-/// <reference path="../src/definitions/socket.io.d.ts" />
-/// <reference path="../src/definitions/node.d.ts" />
+/// <reference path="../src/Definitions/socket.io.d.ts" />
+/// <reference path="../src/Definitions/node.d.ts" />
 import SocketIO = require("socket.io");
-import Room = require("./room");
+import Room = require("./Room");
 declare class Main {
     public config: {
         ip: string;

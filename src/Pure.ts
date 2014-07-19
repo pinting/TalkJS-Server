@@ -1,15 +1,10 @@
-/// <reference path="./definitions/socket.io.d.ts" />
-/// <reference path="./definitions/node.d.ts" />
+/// <reference path="./Definitions/socket.io" />
+/// <reference path="./Definitions/node" />
+/// <reference path="./IMessage" />
 
 import SocketIO = require("socket.io");
-import Main = require("./main");
-import Util = require("./util");
-
-interface IMessage {
-    peer: string;
-    key: string;
-    value: any;
-}
+import Main = require("./Main");
+import Util = require("./Util");
 
 class Pure {
     public warn = Util.noop;

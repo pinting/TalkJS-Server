@@ -1,9 +1,9 @@
-/// <reference path="./definitions/socket.io.d.ts" />
-/// <reference path="./definitions/node.d.ts" />
+/// <reference path="./Definitions/socket.io" />
+/// <reference path="./Definitions/node" />
 
 import SocketIO = require("socket.io");
-import Room = require("./room");
-import Util = require("./util");
+import Room = require("./Room");
+import Util = require("./Util");
 import HTTP = require("http");
 
 class Main {

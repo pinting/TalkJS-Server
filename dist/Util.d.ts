@@ -1,4 +1,4 @@
-/// <reference path="../src/definitions/node.d.ts" />
+/// <reference path="../src/Definitions/node.d.ts" />
 declare class Util {
     static safeCb(obj: any): any;
     static safeStr(obj: string): string;

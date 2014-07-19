@@ -1,6 +1,6 @@
 var SocketIO = require("socket.io");
-var Room = require("./room");
-var Util = require("./util");
+var Room = require("./Room");
+var Util = require("./Util");
 var HTTP = require("http");
 
 var Main = (function () {

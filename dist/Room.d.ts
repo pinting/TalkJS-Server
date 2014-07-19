@@ -1,8 +1,8 @@
-/// <reference path="../src/definitions/socket.io.d.ts" />
-/// <reference path="../src/definitions/node.d.ts" />
+/// <reference path="../src/Definitions/socket.io.d.ts" />
+/// <reference path="../src/Definitions/node.d.ts" />
 import SocketIO = require("socket.io");
-import Pure = require("./pure");
-import Main = require("./main");
+import Pure = require("./Pure");
+import Main = require("./Main");
 declare class Room extends Pure {
     constructor(socket: SocketIO.Socket, parent: Main);
     private getRoomClients(room);
